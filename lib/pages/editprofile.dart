@@ -16,6 +16,9 @@ class editprofile extends StatefulWidget {
 class _editprofileState extends State<editprofile> {
 
 
+  bool isDarkMode = true;
+
+
   Uint8List? _image;
   File? selectedIMage;
   //Gallery
@@ -111,63 +114,109 @@ class _editprofileState extends State<editprofile> {
 
   @override
   Widget build(BuildContext context) {
-    return Scaffold(
-      body: SafeArea(
-        child: Container(
-          padding: EdgeInsets.all(10),
-          height: MediaQuery.of(context).size.height*1,
-          width: MediaQuery.of(context).size.width*1,
-          decoration: BoxDecoration(color: bg),
-          child: SingleChildScrollView(
-            child: Column(
-              children: [
-                SizedBox(height: 30),
-                Stack(
-                  children: [
-                    _image != null
-                        ? CircleAvatar(
+    return MaterialApp(
+      theme: isDarkMode ? ThemeData.dark() : ThemeData.light(),
+      debugShowCheckedModeBanner: false,
+      home: Scaffold(
+        body: SafeArea(
+          child: Container(
+            padding: EdgeInsets.all(10),
+            height: MediaQuery.of(context).size.height*1,
+            width: MediaQuery.of(context).size.width*1,
+            decoration: BoxDecoration(color: bg),
+            child: SingleChildScrollView(
+              child: Column(
+                children: [
+                  SizedBox(height: 30),
+                  Stack(
+                    children: [
+                      _image != null
+                          ? CircleAvatar(
+                          radius: 60,
+                          backgroundImage: MemoryImage(_image!))
+                          : const CircleAvatar(
                         radius: 60,
-                        backgroundImage: MemoryImage(_image!))
-                        : const CircleAvatar(
-                      radius: 60,
-                      backgroundImage: NetworkImage(
-                          "https://t4.ftcdn.net/jpg/00/65/77/27/360_F_65772719_A1UV5kLi5nCEWI0BNLLiFaBPEkUbv5Fv.jpg"),
-                    ),
-                    Positioned(
-                        bottom: -10,
-                        left: 80,
-                        child: IconButton(
-                            onPressed: () {
-                              showImagePickerOption(context);
-                            },
-                            icon:  Icon(Icons.add_a_photo,
-                              color: Colors.grey.shade600,
-                              size: 30,
-                            )))
-                  ],
-                ),
-                SizedBox(height: 20),
-                Row(
-                  mainAxisAlignment: MainAxisAlignment.spaceEvenly,
-                  children: [
-                    SizedBox(width: 20,),
-                    Container(
-                      width: MediaQuery.of(context).size.width*0.25,
-                      child: Text("Name :",
-                      style: text,
+                        backgroundImage: NetworkImage(
+                            "https://t4.ftcdn.net/jpg/00/65/77/27/360_F_65772719_A1UV5kLi5nCEWI0BNLLiFaBPEkUbv5Fv.jpg"),
                       ),
-                    ),
+                      Positioned(
+                          bottom: -10,
+                          left: 80,
+                          child: IconButton(
+                              onPressed: () {
+                                showImagePickerOption(context);
+                              },
+                              icon:  Icon(Icons.add_a_photo,
+                                color: Colors.grey.shade600,
+                                size: 30,
+                              )))
+                    ],
+                  ),
+                  SizedBox(height: 20),
+                  Row(
+                    mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+                    children: [
+                      SizedBox(width: 20,),
+                      Container(
+                        width: MediaQuery.of(context).size.width*0.25,
+                        child: Text("Name :",
+                        style: text,
+                        ),
+                      ),
 
-                    Container(
-                      width: MediaQuery.of(context).size.width*0.6,
-                      decoration: BoxDecoration(
-                          color: Colors.white.withOpacity(.25),
-                          borderRadius: BorderRadius.circular(20),
-                          border: Border.all(width: 0.5,color: Colors.white10)
+                      Container(
+                        width: MediaQuery.of(context).size.width*0.6,
+                        decoration: BoxDecoration(
+                            color: Colors.white.withOpacity(.25),
+                            borderRadius: BorderRadius.circular(20),
+                            border: Border.all(width: 0.5,color: Colors.white10)
+                        ),
+                        child: TextField(
+                          style: category,
+                          decoration: InputDecoration(
+                              border: OutlineInputBorder(
+                                borderSide: BorderSide(
+                                  color: Colors.white10,width: 1,),
+                                borderRadius: BorderRadius.circular(20),
+                              ),
+                              focusedBorder: OutlineInputBorder(
+                                borderRadius: BorderRadius.circular(20),
+                                borderSide: BorderSide(color: Colors.yellow, width: 1),
+                              ),
+                              enabledBorder: OutlineInputBorder(
+                                borderRadius: BorderRadius.circular(20),
+                                borderSide: BorderSide(color: Colors.white10, width: 1),
+                              ),
+                          ),
+                        ),
                       ),
-                      child: TextField(
-                        style: category,
-                        decoration: InputDecoration(
+
+
+                    ],
+                  ),
+                  SizedBox(height: 20),
+                  Row(
+                    mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+
+                    children: [
+                      SizedBox(width: 20,),
+                      Container(
+                        width: MediaQuery.of(context).size.width*0.25,
+                        child: Text("Phone no :",
+                          style: text,
+                        ),
+                      ),
+
+                      Container(
+                        width: MediaQuery.of(context).size.width*0.6,
+                        decoration: BoxDecoration(
+                            color: Colors.white.withOpacity(.25),
+                            borderRadius: BorderRadius.circular(20),
+                            border: Border.all(width: 0.5,color: Colors.white10)
+                        ),
+                        child: TextField(
+                          style: category,
+                          decoration: InputDecoration(
                             border: OutlineInputBorder(
                               borderSide: BorderSide(
                                 color: Colors.white10,width: 1,),
@@ -181,246 +230,204 @@ class _editprofileState extends State<editprofile> {
                               borderRadius: BorderRadius.circular(20),
                               borderSide: BorderSide(color: Colors.white10, width: 1),
                             ),
-                        ),
-                      ),
-                    ),
-
-
-                  ],
-                ),
-                SizedBox(height: 20),
-                Row(
-                  mainAxisAlignment: MainAxisAlignment.spaceEvenly,
-
-                  children: [
-                    SizedBox(width: 20,),
-                    Container(
-                      width: MediaQuery.of(context).size.width*0.25,
-                      child: Text("Phone no :",
-                        style: text,
-                      ),
-                    ),
-
-                    Container(
-                      width: MediaQuery.of(context).size.width*0.6,
-                      decoration: BoxDecoration(
-                          color: Colors.white.withOpacity(.25),
-                          borderRadius: BorderRadius.circular(20),
-                          border: Border.all(width: 0.5,color: Colors.white10)
-                      ),
-                      child: TextField(
-                        style: category,
-                        decoration: InputDecoration(
-                          border: OutlineInputBorder(
-                            borderSide: BorderSide(
-                              color: Colors.white10,width: 1,),
-                            borderRadius: BorderRadius.circular(20),
-                          ),
-                          focusedBorder: OutlineInputBorder(
-                            borderRadius: BorderRadius.circular(20),
-                            borderSide: BorderSide(color: Colors.yellow, width: 1),
-                          ),
-                          enabledBorder: OutlineInputBorder(
-                            borderRadius: BorderRadius.circular(20),
-                            borderSide: BorderSide(color: Colors.white10, width: 1),
                           ),
                         ),
                       ),
-                    ),
 
 
-                  ],
-                ),
-                SizedBox(height: 20),
-                Row(
-                  mainAxisAlignment: MainAxisAlignment.spaceEvenly,
-
-                  children: [
-                    SizedBox(width: 20,),
-                    Container(
-                      width: MediaQuery.of(context).size.width*0.25,
-                      child: Text("E-mail :",
-                        style: text,
-                      ),
-                    ),
-
-                    Container(
-                      width: MediaQuery.of(context).size.width*0.6,
-                      decoration: BoxDecoration(
-                          color: Colors.white.withOpacity(.25),
-                          borderRadius: BorderRadius.circular(20),
-                          border: Border.all(width: 0.5,color: Colors.white10)
-                      ),
-                      child: TextField(
-                        style: category,
-                        decoration: InputDecoration(
-                          border: OutlineInputBorder(
-                            borderSide: BorderSide(
-                              color: Colors.white10,width: 1,),
-                            borderRadius: BorderRadius.circular(20),
-                          ),
-                          focusedBorder: OutlineInputBorder(
-                            borderRadius: BorderRadius.circular(20),
-                            borderSide: BorderSide(color: Colors.yellow, width: 1),
-                          ),
-                          enabledBorder: OutlineInputBorder(
-                            borderRadius: BorderRadius.circular(20),
-                            borderSide: BorderSide(color: Colors.white10, width: 1),
-                          ),
-                        ),
-                      ),
-                    ),
-
-
-                  ],
-                ),
-                SizedBox(height: 20),
-                Row(
-                  mainAxisAlignment: MainAxisAlignment.spaceEvenly,
-
-                  children: [
-                    SizedBox(width: 20,),
-                    Container(
-                      width: MediaQuery.of(context).size.width*0.25,
-                      child: Text("D.O.B :",
-                        style: text,
-                      ),
-                    ),
-                    Container(
-                      width: MediaQuery.of(context).size.width*0.6,
-                      decoration: BoxDecoration(
-                          color: Colors.white.withOpacity(.25),
-                          borderRadius: BorderRadius.circular(20),
-                          border: Border.all(width: 0.5,color: Colors.white10)
-                      ),
-                      child: TextField(
-                        style: category,
-                        decoration: InputDecoration(
-                          border: OutlineInputBorder(
-                            borderSide: BorderSide(
-                              color: Colors.white10,width: 1,),
-                            borderRadius: BorderRadius.circular(20),
-                          ),
-                          focusedBorder: OutlineInputBorder(
-                            borderRadius: BorderRadius.circular(20),
-                            borderSide: BorderSide(color: Colors.yellow, width: 1),
-                          ),
-                          enabledBorder: OutlineInputBorder(
-                            borderRadius: BorderRadius.circular(20),
-                            borderSide: BorderSide(color: Colors.white10, width: 1),
-                          ),
-                        ),
-                      ),
-                    ),
-
-
-                  ],
-                ),
-                SizedBox(height: 20),
-                Row(
-                  mainAxisAlignment: MainAxisAlignment.spaceEvenly,
-
-                  children: [
-                    SizedBox(width: 20,),
-                    Container(
-                      width: MediaQuery.of(context).size.width*0.25,
-                      child: Text("Location :",
-                        style: text,
-                      ),
-                    ),
-                    Container(
-                      width: MediaQuery.of(context).size.width*0.6,
-                      decoration: BoxDecoration(
-                          color: Colors.white.withOpacity(.25),
-                          borderRadius: BorderRadius.circular(20),
-                          border: Border.all(width: 0.5,color: Colors.white10)
-                      ),
-                      child: TextField(
-                        style: category,
-                        decoration: InputDecoration(
-                          border: OutlineInputBorder(
-                            borderSide: BorderSide(
-                              color: Colors.white10,width: 1,),
-                            borderRadius: BorderRadius.circular(20),
-                          ),
-                          focusedBorder: OutlineInputBorder(
-                            borderRadius: BorderRadius.circular(20),
-                            borderSide: BorderSide(color: Colors.yellow, width: 1),
-                          ),
-                          enabledBorder: OutlineInputBorder(
-                            borderRadius: BorderRadius.circular(20),
-                            borderSide: BorderSide(color: Colors.white10, width: 1),
-                          ),
-                        ),
-                      ),
-                    ),
-
-
-                  ],
-                ),
-                SizedBox(height: 20),
-                Row(
-                  mainAxisAlignment: MainAxisAlignment.spaceEvenly,
-
-                  children: [
-                    SizedBox(width: 20,),
-                    Container(
-                      width: MediaQuery.of(context).size.width*0.25,
-                      child: Text("Password :",
-                        style: text,
-                      ),
-                    ),
-                    Container(
-                      width: MediaQuery.of(context).size.width*0.6,
-                      decoration: BoxDecoration(
-                          color: Colors.white.withOpacity(.25),
-                          borderRadius: BorderRadius.circular(20),
-                          border: Border.all(width: 0.5,color: Colors.white10)
-                      ),
-                      child: TextField(
-                        style: category,
-                        decoration: InputDecoration(
-                          border: OutlineInputBorder(
-                            borderSide: BorderSide(
-                              color: Colors.white10,width: 1,),
-                            borderRadius: BorderRadius.circular(20),
-                          ),
-                          focusedBorder: OutlineInputBorder(
-                            borderRadius: BorderRadius.circular(20),
-                            borderSide: BorderSide(color: Colors.yellow, width: 1),
-                          ),
-                          enabledBorder: OutlineInputBorder(
-                            borderRadius: BorderRadius.circular(20),
-                            borderSide: BorderSide(color: Colors.white10, width: 1),
-                          ),
-                        ),
-                      ),
-                    ),
-
-
-                  ],
-                ),
-                SizedBox(height: 50),
-                GestureDetector(
-                  onTap: (){
-                    Navigator.push(context, MaterialPageRoute(builder: (context)=>profile()));
-                  },
-                  child: Container(
-                    height: MediaQuery.of(context).size.height*0.06,
-                    width: MediaQuery.of(context).size.width*0.5,
-                    decoration: BoxDecoration(
-                      color: Colors.blue,
-                      borderRadius: BorderRadius.circular(20)
-                    ),
-                    child: Center(
-                      child: Text("Save Changes",
-                      style: subheading,
-                      ),
-                    ),
+                    ],
                   ),
-                )
+                  SizedBox(height: 20),
+                  Row(
+                    mainAxisAlignment: MainAxisAlignment.spaceEvenly,
 
-              ],
+                    children: [
+                      SizedBox(width: 20,),
+                      Container(
+                        width: MediaQuery.of(context).size.width*0.25,
+                        child: Text("E-mail :",
+                          style: text,
+                        ),
+                      ),
+
+                      Container(
+                        width: MediaQuery.of(context).size.width*0.6,
+                        decoration: BoxDecoration(
+                            color: Colors.white.withOpacity(.25),
+                            borderRadius: BorderRadius.circular(20),
+                            border: Border.all(width: 0.5,color: Colors.white10)
+                        ),
+                        child: TextField(
+                          style: category,
+                          decoration: InputDecoration(
+                            border: OutlineInputBorder(
+                              borderSide: BorderSide(
+                                color: Colors.white10,width: 1,),
+                              borderRadius: BorderRadius.circular(20),
+                            ),
+                            focusedBorder: OutlineInputBorder(
+                              borderRadius: BorderRadius.circular(20),
+                              borderSide: BorderSide(color: Colors.yellow, width: 1),
+                            ),
+                            enabledBorder: OutlineInputBorder(
+                              borderRadius: BorderRadius.circular(20),
+                              borderSide: BorderSide(color: Colors.white10, width: 1),
+                            ),
+                          ),
+                        ),
+                      ),
+
+
+                    ],
+                  ),
+                  SizedBox(height: 20),
+                  Row(
+                    mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+
+                    children: [
+                      SizedBox(width: 20,),
+                      Container(
+                        width: MediaQuery.of(context).size.width*0.25,
+                        child: Text("D.O.B :",
+                          style: text,
+                        ),
+                      ),
+                      Container(
+                        width: MediaQuery.of(context).size.width*0.6,
+                        decoration: BoxDecoration(
+                            color: Colors.white.withOpacity(.25),
+                            borderRadius: BorderRadius.circular(20),
+                            border: Border.all(width: 0.5,color: Colors.white10)
+                        ),
+                        child: TextField(
+                          style: category,
+                          decoration: InputDecoration(
+                            border: OutlineInputBorder(
+                              borderSide: BorderSide(
+                                color: Colors.white10,width: 1,),
+                              borderRadius: BorderRadius.circular(20),
+                            ),
+                            focusedBorder: OutlineInputBorder(
+                              borderRadius: BorderRadius.circular(20),
+                              borderSide: BorderSide(color: Colors.yellow, width: 1),
+                            ),
+                            enabledBorder: OutlineInputBorder(
+                              borderRadius: BorderRadius.circular(20),
+                              borderSide: BorderSide(color: Colors.white10, width: 1),
+                            ),
+                          ),
+                        ),
+                      ),
+
+
+                    ],
+                  ),
+                  SizedBox(height: 20),
+                  Row(
+                    mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+
+                    children: [
+                      SizedBox(width: 20,),
+                      Container(
+                        width: MediaQuery.of(context).size.width*0.25,
+                        child: Text("Location :",
+                          style: text,
+                        ),
+                      ),
+                      Container(
+                        width: MediaQuery.of(context).size.width*0.6,
+                        decoration: BoxDecoration(
+                            color: Colors.white.withOpacity(.25),
+                            borderRadius: BorderRadius.circular(20),
+                            border: Border.all(width: 0.5,color: Colors.white10)
+                        ),
+                        child: TextField(
+                          style: category,
+                          decoration: InputDecoration(
+                            border: OutlineInputBorder(
+                              borderSide: BorderSide(
+                                color: Colors.white10,width: 1,),
+                              borderRadius: BorderRadius.circular(20),
+                            ),
+                            focusedBorder: OutlineInputBorder(
+                              borderRadius: BorderRadius.circular(20),
+                              borderSide: BorderSide(color: Colors.yellow, width: 1),
+                            ),
+                            enabledBorder: OutlineInputBorder(
+                              borderRadius: BorderRadius.circular(20),
+                              borderSide: BorderSide(color: Colors.white10, width: 1),
+                            ),
+                          ),
+                        ),
+                      ),
+
+
+                    ],
+                  ),
+                  SizedBox(height: 20),
+                  Row(
+                    mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+
+                    children: [
+                      SizedBox(width: 20,),
+                      Container(
+                        width: MediaQuery.of(context).size.width*0.25,
+                        child: Text("Password :",
+                          style: text,
+                        ),
+                      ),
+                      Container(
+                        width: MediaQuery.of(context).size.width*0.6,
+                        decoration: BoxDecoration(
+                            color: Colors.white.withOpacity(.25),
+                            borderRadius: BorderRadius.circular(20),
+                            border: Border.all(width: 0.5,color: Colors.white10)
+                        ),
+                        child: TextField(
+                          style: category,
+                          decoration: InputDecoration(
+                            border: OutlineInputBorder(
+                              borderSide: BorderSide(
+                                color: Colors.white10,width: 1,),
+                              borderRadius: BorderRadius.circular(20),
+                            ),
+                            focusedBorder: OutlineInputBorder(
+                              borderRadius: BorderRadius.circular(20),
+                              borderSide: BorderSide(color: Colors.yellow, width: 1),
+                            ),
+                            enabledBorder: OutlineInputBorder(
+                              borderRadius: BorderRadius.circular(20),
+                              borderSide: BorderSide(color: Colors.white10, width: 1),
+                            ),
+                          ),
+                        ),
+                      ),
+
+
+                    ],
+                  ),
+                  SizedBox(height: 50),
+                  GestureDetector(
+                    onTap: (){
+                      Navigator.push(context, MaterialPageRoute(builder: (context)=>profile()));
+                    },
+                    child: Container(
+                      height: MediaQuery.of(context).size.height*0.06,
+                      width: MediaQuery.of(context).size.width*0.5,
+                      decoration: BoxDecoration(
+                        color: Colors.blue,
+                        borderRadius: BorderRadius.circular(20)
+                      ),
+                      child: Center(
+                        child: Text("Save Changes",
+                        style: subheading,
+                        ),
+                      ),
+                    ),
+                  )
+
+                ],
+              ),
             ),
           ),
         ),

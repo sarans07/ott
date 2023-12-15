@@ -14,6 +14,9 @@ class _videoplayerState extends State<videoplayer> {
 
 
 
+  bool isDarkMode = true;
+
+
   late VideoPlayerController _videoPlayerController,
   _videoPlayerController1,
   _videoPlayerController2;
@@ -66,47 +69,51 @@ class _videoplayerState extends State<videoplayer> {
 
   @override
   Widget build(BuildContext context) {
-    return Scaffold(
-      body: SafeArea(
-        child: Container(
-          padding: EdgeInsets.all(10),
-          height: MediaQuery.of(context).size.height*1,
-          width: MediaQuery.of(context).size.width*1,
-          decoration: BoxDecoration(
-            color: bg,
-          ),
-          child: ListView(
-            children: [
-              Center(
-                child: Text("Animals in VIDY",
-                style: vidy,
+    return MaterialApp(
+      theme: isDarkMode ? ThemeData.dark() : ThemeData.light(),
+      debugShowCheckedModeBanner: false,
+      home: Scaffold(
+        body: SafeArea(
+          child: Container(
+            padding: EdgeInsets.all(10),
+            height: MediaQuery.of(context).size.height*1,
+            width: MediaQuery.of(context).size.width*1,
+            decoration: BoxDecoration(
+              color: bg,
+            ),
+            child: ListView(
+              children: [
+                Center(
+                  child: Text("Animals in VIDY",
+                  style: vidy,
+                  ),
                 ),
-              ),
-              SizedBox(height: 200),
-              kIsWeb
-                  ? Expanded(
-                child: CustomVideoPlayerWeb(
-                  customVideoPlayerWebController:
-                  _customVideoPlayerWebController,
+                SizedBox(height: 200),
+                kIsWeb
+                    ? Expanded(
+                  child: CustomVideoPlayerWeb(
+                    customVideoPlayerWebController:
+                    _customVideoPlayerWebController,
+                  ),
+                )
+                    : CustomVideoPlayer(
+                  customVideoPlayerController: _customVideoPlayerController,
                 ),
-              )
-                  : CustomVideoPlayer(
-                customVideoPlayerController: _customVideoPlayerController,
-              ),
-              CupertinoButton(
-                child: const Text("Play Fullscreen"),
-                onPressed: () {
-                  if (kIsWeb) {
-                    _customVideoPlayerWebController.setFullscreen(true);
-                    _customVideoPlayerWebController.play();
-                  } else {
-                    _customVideoPlayerController.setFullscreen(true);
-                    _customVideoPlayerController.videoPlayerController.play();
-                  }
-                },
-              ),
+                CupertinoButton(
+                  child: const Text("Play Fullscreen"),
+                  onPressed: () {
+                    if (kIsWeb) {
+                      _customVideoPlayerWebController.setFullscreen(true);
+                      _customVideoPlayerWebController.play();
+                    } else {
+                      _customVideoPlayerController.setFullscreen(true);
+                      _customVideoPlayerController.videoPlayerController.play();
+                    }
+                  },
+                ),
 
-            ],
+              ],
+            ),
           ),
         ),
       ),

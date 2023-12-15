@@ -25,275 +25,281 @@ class _tvshowsState extends State<tvshows> {
 
   ];
 
+  bool isDarkMode = true;
+
   @override
   Widget build(BuildContext context) {
-    return Scaffold(
-      body: SafeArea(
-        child: Container(
-          height: MediaQuery.of(context).size.height*1,
-          width: MediaQuery.of(context).size.width*1,
-          padding: EdgeInsets.all(10),
-          decoration: BoxDecoration(
-            color: bg,
-          ),
-          child: SingleChildScrollView(
-            child: Column(
-              children: [
-                Row(
-                  mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                  children: [
-                    Align(
-                      alignment: Alignment.topLeft,
-                      child: Text("VIDY",
-                        style: vidy,
-                      ),
-                    ),
-                    Container(child: Row(
-                      children: [
-                        Icon(Icons.search,size: 30,color: Colors.yellow,),
-                      ],
-                    )),
-                  ],
-                ),
-                SizedBox(height: 10),
-                Container(
-                  height: 50,
-                  child: ListView.builder(
-                    scrollDirection: Axis.horizontal,
-                    itemCount: 10,
-                    itemBuilder: (BuildContext con,index) {
-                      return Padding(
-                        padding: const EdgeInsets.all(8.0),
-                        child: Container(
-                          height: MediaQuery.of(context).size.height*0.07,
-                          width: MediaQuery.of(context).size.width*0.3,
-                          decoration: BoxDecoration(
-                              borderRadius: BorderRadius.circular(20),
-                              color: Colors.white30
-                          ),
-                          child: Center(
-                            child: Text("Tamil",
-                              style: category,
-                            ),
-                          ),
-                        ),
-                      );
-
-                    },
-                  ),
-                ),
-                SizedBox(height: 10),
-                Align(
-                  alignment: Alignment.topLeft,
-                  child: Text("Popular Shows🔥",
-                    style: subheading,
-                  ),
-                ),
-                SizedBox(height: 10),
-                Stack(
+    return MaterialApp(
+      theme: isDarkMode ? ThemeData.dark() : ThemeData.light(),
+      debugShowCheckedModeBanner: false,
+      home: Scaffold(
+        body: SafeArea(
+          child: Container(
+            height: MediaQuery.of(context).size.height*1,
+            width: MediaQuery.of(context).size.width*1,
+            padding: EdgeInsets.all(10),
+            decoration: BoxDecoration(
+              color: bg,
+            ),
+            child: SingleChildScrollView(
+              child: Column(
+                children: [
+                  Row(
+                    mainAxisAlignment: MainAxisAlignment.spaceBetween,
                     children: [
-                      CarouselSlider.builder(
-                        itemCount: items.length,
-                        options: CarouselOptions(
-                            scrollDirection: Axis.horizontal,
-                            height: 350,
-                            autoPlay: true,
-                            viewportFraction:1,
-                            onPageChanged: (index,reason){
-                              setState(() {
-                                currentIndex = index;
-                              });
-                            }
+                      Align(
+                        alignment: Alignment.topLeft,
+                        child: Text("VIDY",
+                          style: vidy,
                         ),
-
-                        itemBuilder: (BuildContext context, int index, int pageViewIndex){
-                          return Container(
-                            height: MediaQuery.of(context).size.height*0.5,
-                            width: MediaQuery.of(context).size.width*1,                             decoration: BoxDecoration(
-                              image: DecorationImage(
-                                image: NetworkImage(items[index]),
-                                fit: BoxFit.fill,
+                      ),
+                      Container(child: Row(
+                        children: [
+                          Icon(Icons.search,size: 30,color: Colors.yellow,),
+                        ],
+                      )),
+                    ],
+                  ),
+                  SizedBox(height: 10),
+                  Container(
+                    height: 50,
+                    child: ListView.builder(
+                      scrollDirection: Axis.horizontal,
+                      itemCount: 10,
+                      itemBuilder: (BuildContext con,index) {
+                        return Padding(
+                          padding: const EdgeInsets.all(8.0),
+                          child: Container(
+                            height: MediaQuery.of(context).size.height*0.07,
+                            width: MediaQuery.of(context).size.width*0.3,
+                            decoration: BoxDecoration(
+                                borderRadius: BorderRadius.circular(20),
+                                color: Colors.white30
+                            ),
+                            child: Center(
+                              child: Text("Tamil",
+                                style: category,
                               ),
                             ),
-                          );
-                        },
-                      ),
-                      Positioned(
-                        bottom: 10,
-                        left: 100,
-                        child: Container(
-                          height: MediaQuery.of(context).size.height*0.065,
-                          width: MediaQuery.of(context).size.width*0.45,
-                          decoration: BoxDecoration(
-                              color: Colors.pink,
-                              borderRadius: BorderRadius.circular(20)
                           ),
-                          child: Row(
-                            mainAxisAlignment: MainAxisAlignment.spaceEvenly,
-                            children: [
-                              Icon(Icons.play_arrow,color: Colors.white,size: 30,),
-                              Text("Watch Now",
-                                style: subheading,
-                              )
-                            ],
+                        );
+
+                      },
+                    ),
+                  ),
+                  SizedBox(height: 10),
+                  Align(
+                    alignment: Alignment.topLeft,
+                    child: Text("Popular Shows🔥",
+                      style: subheading,
+                    ),
+                  ),
+                  SizedBox(height: 10),
+                  Stack(
+                      children: [
+                        CarouselSlider.builder(
+                          itemCount: items.length,
+                          options: CarouselOptions(
+                              scrollDirection: Axis.horizontal,
+                              height: 350,
+                              autoPlay: true,
+                              viewportFraction:1,
+                              onPageChanged: (index,reason){
+                                setState(() {
+                                  currentIndex = index;
+                                });
+                              }
                           ),
-                        ),
-                      )
-                    ]
-                ),
-                SizedBox(height: 10),
-                DotsIndicator(
-                  dotsCount: items.length,
-                  position: currentIndex.toInt(),
-                ),
-                SizedBox(height: 10),
-                Row(
-                  mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                  children: [
-                    Align(
-                      alignment: Alignment.topLeft,
-                      child: Text("Shows You Have To Watch",
-                        style: subheading,
-                      ),
-                    ),
-                    Icon(Icons.arrow_forward_ios_outlined,size: 20,color: Colors.white,)
-                  ],
-                ),
-                SizedBox(height: 10),
-                Container(
-                  height: MediaQuery.of(context).size.height*0.25,
-                  width: MediaQuery.of(context).size.width*1,                  child: ListView.builder(
-                    scrollDirection: Axis.horizontal,
-                    itemCount: 5,
-                    itemBuilder: (BuildContext con,index) {
-                      return Padding(
-                        padding: const EdgeInsets.all(8.0),
-                        child: Container(
-                          height: MediaQuery.of(context).size.height*0.25,
-                          width: MediaQuery.of(context).size.width*0.4,
-                          decoration: BoxDecoration(
-                            boxShadow: [
-                              BoxShadow(
-                                color: Colors.black54,
-                                blurRadius: 5,
-                                spreadRadius: 2,
-                                offset: Offset(
-                                    5.0,
-                                    5.0
-                                ),
-                              )
-                            ],
-                            image: DecorationImage(
-                              image: NetworkImage("https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcSOO6btBDwYqou79cETWBT8Qz89xN4Kelf9eA&usqp=CAU"),
-                              fit: BoxFit.fill,
-                            ),),
-                        ),
-                      );
 
-                    },
-                  ),
-                ),
-                SizedBox(height: 10),
-                Row(
-                  mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                  children: [
-                    Align(
-                      alignment: Alignment.topLeft,
-                      child: Text("Tv Serials",
-                        style: subheading,
-                      ),
-                    ),
-                    Icon(Icons.arrow_forward_ios_outlined,size: 20,color: Colors.white,)
-                  ],
-                ),
-                SizedBox(height: 10),
-                Container(
-                  height: MediaQuery.of(context).size.height*0.25,
-                  width: MediaQuery.of(context).size.width*1,                  child: ListView.builder(
-                    scrollDirection: Axis.horizontal,
-                    itemCount: 5,
-                    itemBuilder: (BuildContext con,index) {
-                      return Padding(
-                        padding: const EdgeInsets.all(8.0),
-                        child: Container(
-                          height: MediaQuery.of(context).size.height*0.25,
-                          width: MediaQuery.of(context).size.width*0.4,
-                          decoration: BoxDecoration(
-                            boxShadow: [
-                              BoxShadow(
-                                color: Colors.black54,
-                                blurRadius: 5,
-                                spreadRadius: 2,
-                                offset: Offset(
-                                    5.0,
-                                    5.0
+                          itemBuilder: (BuildContext context, int index, int pageViewIndex){
+                            return Container(
+                              height: MediaQuery.of(context).size.height*0.5,
+                              width: MediaQuery.of(context).size.width*1,                             decoration: BoxDecoration(
+                                image: DecorationImage(
+                                  image: NetworkImage(items[index]),
+                                  fit: BoxFit.fill,
                                 ),
-                              )
-                            ],
-                            image: DecorationImage(
-                              image: NetworkImage("https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcQmcBgcSR_v9YxC5p3ID6pdR1JVvsRjbstTaw&usqp=CAU"),
-                              fit: BoxFit.fill,
-                            ),),
+                              ),
+                            );
+                          },
                         ),
-                      );
-
-                    },
+                        Positioned(
+                          bottom: 10,
+                          left: 100,
+                          child: Container(
+                            height: MediaQuery.of(context).size.height*0.065,
+                            width: MediaQuery.of(context).size.width*0.45,
+                            decoration: BoxDecoration(
+                                color: Colors.pink,
+                                borderRadius: BorderRadius.circular(20)
+                            ),
+                            child: Row(
+                              mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+                              children: [
+                                Icon(Icons.play_arrow,color: Colors.white,size: 30,),
+                                Text("Watch Now",
+                                  style: subheading,
+                                )
+                              ],
+                            ),
+                          ),
+                        )
+                      ]
                   ),
-                ),
-                SizedBox(height: 10),
-                Row(
-                  mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                  children: [
-                    Align(
-                      alignment: Alignment.topLeft,
-                      child: Text("New Year Special Shows",
-                        style: subheading,
+                  SizedBox(height: 10),
+                  DotsIndicator(
+                    dotsCount: items.length,
+                    position: currentIndex.toInt(),
+                  ),
+                  SizedBox(height: 10),
+                  Row(
+                    mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                    children: [
+                      Align(
+                        alignment: Alignment.topLeft,
+                        child: Text("Shows You Have To Watch",
+                          style: subheading,
+                        ),
                       ),
-                    ),
-                    Icon(Icons.arrow_forward_ios_outlined,size: 20,color: Colors.white,)
-                  ],
-                ),
-                SizedBox(height: 10),
-                Container(
-                  height: MediaQuery.of(context).size.height*0.25,
-                  width: MediaQuery.of(context).size.width*1,
-                  child: ListView.builder(
-                    scrollDirection: Axis.horizontal,
-                    itemCount: 5,
-                    itemBuilder: (BuildContext con,index) {
-                      return Padding(
-                        padding: const EdgeInsets.all(8.0),
-                        child: Container(
-                          height: MediaQuery.of(context).size.height*0.25,
-                          width: MediaQuery.of(context).size.width*0.4,
-                          decoration: BoxDecoration(
-                            boxShadow: [
-                              BoxShadow(
-                                color: Colors.black54,
-                                blurRadius: 5,
-                                spreadRadius: 2,
-                                offset: Offset(
-                                    5.0,
-                                    5.0
-                                ),
-                              )
-                            ],
-                            image: DecorationImage(
-                              image: NetworkImage("https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcTql8DEVW4vHlcqvIygkKJacH1Bhhh8yOwoyA&usqp=CAU"),
-                              fit: BoxFit.fill,
-                            ),),
-                        ),
-                      );
-
-                    },
+                      Icon(Icons.arrow_forward_ios_outlined,size: 20,color: Colors.white,)
+                    ],
                   ),
-                ),
-              ],
+                  SizedBox(height: 10),
+                  Container(
+                    height: MediaQuery.of(context).size.height*0.25,
+                    width: MediaQuery.of(context).size.width*1,                  child: ListView.builder(
+                      scrollDirection: Axis.horizontal,
+                      itemCount: 5,
+                      itemBuilder: (BuildContext con,index) {
+                        return Padding(
+                          padding: const EdgeInsets.all(8.0),
+                          child: Container(
+                            height: MediaQuery.of(context).size.height*0.25,
+                            width: MediaQuery.of(context).size.width*0.4,
+                            decoration: BoxDecoration(
+                              boxShadow: [
+                                BoxShadow(
+                                  color: Colors.black54,
+                                  blurRadius: 5,
+                                  spreadRadius: 2,
+                                  offset: Offset(
+                                      5.0,
+                                      5.0
+                                  ),
+                                )
+                              ],
+                              image: DecorationImage(
+                                image: NetworkImage("https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcSOO6btBDwYqou79cETWBT8Qz89xN4Kelf9eA&usqp=CAU"),
+                                fit: BoxFit.fill,
+                              ),),
+                          ),
+                        );
+
+                      },
+                    ),
+                  ),
+                  SizedBox(height: 10),
+                  Row(
+                    mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                    children: [
+                      Align(
+                        alignment: Alignment.topLeft,
+                        child: Text("Tv Serials",
+                          style: subheading,
+                        ),
+                      ),
+                      Icon(Icons.arrow_forward_ios_outlined,size: 20,color: Colors.white,)
+                    ],
+                  ),
+                  SizedBox(height: 10),
+                  Container(
+                    height: MediaQuery.of(context).size.height*0.25,
+                    width: MediaQuery.of(context).size.width*1,                  child: ListView.builder(
+                      scrollDirection: Axis.horizontal,
+                      itemCount: 5,
+                      itemBuilder: (BuildContext con,index) {
+                        return Padding(
+                          padding: const EdgeInsets.all(8.0),
+                          child: Container(
+                            height: MediaQuery.of(context).size.height*0.25,
+                            width: MediaQuery.of(context).size.width*0.4,
+                            decoration: BoxDecoration(
+                              boxShadow: [
+                                BoxShadow(
+                                  color: Colors.black54,
+                                  blurRadius: 5,
+                                  spreadRadius: 2,
+                                  offset: Offset(
+                                      5.0,
+                                      5.0
+                                  ),
+                                )
+                              ],
+                              image: DecorationImage(
+                                image: NetworkImage("https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcQmcBgcSR_v9YxC5p3ID6pdR1JVvsRjbstTaw&usqp=CAU"),
+                                fit: BoxFit.fill,
+                              ),),
+                          ),
+                        );
+
+                      },
+                    ),
+                  ),
+                  SizedBox(height: 10),
+                  Row(
+                    mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                    children: [
+                      Align(
+                        alignment: Alignment.topLeft,
+                        child: Text("New Year Special Shows",
+                          style: subheading,
+                        ),
+                      ),
+                      Icon(Icons.arrow_forward_ios_outlined,size: 20,color: Colors.white,)
+                    ],
+                  ),
+                  SizedBox(height: 10),
+                  Container(
+                    height: MediaQuery.of(context).size.height*0.25,
+                    width: MediaQuery.of(context).size.width*1,
+                    child: ListView.builder(
+                      scrollDirection: Axis.horizontal,
+                      itemCount: 5,
+                      itemBuilder: (BuildContext con,index) {
+                        return Padding(
+                          padding: const EdgeInsets.all(8.0),
+                          child: Container(
+                            height: MediaQuery.of(context).size.height*0.25,
+                            width: MediaQuery.of(context).size.width*0.4,
+                            decoration: BoxDecoration(
+                              boxShadow: [
+                                BoxShadow(
+                                  color: Colors.black54,
+                                  blurRadius: 5,
+                                  spreadRadius: 2,
+                                  offset: Offset(
+                                      5.0,
+                                      5.0
+                                  ),
+                                )
+                              ],
+                              image: DecorationImage(
+                                image: NetworkImage("https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcTql8DEVW4vHlcqvIygkKJacH1Bhhh8yOwoyA&usqp=CAU"),
+                                fit: BoxFit.fill,
+                              ),),
+                          ),
+                        );
+
+                      },
+                    ),
+                  ),
+                ],
+              ),
             ),
           ),
         ),
-      ),
 
+      ),
     );
   }
 }
